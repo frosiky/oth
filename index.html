@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <style>
@@ -16,41 +15,22 @@
     }
   </style>
 </head>
-
 <body>
   <h1>othello</h1>
   <table id="tb1">
-    <tbody>
-      <tr>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-    </tbody>
   </table>
   <p id="result">No cell has been clicked...</p>
   <script>
     const table = document.getElementById("tb1");
-    for (var i = 0; i < table.rows.length; i++) {
-      for (var j = 0; j < table.rows[i].cells.length; j++) {
-        table.rows[i].cells[j].id = i + "-" + j;
-        table.rows[i].cells[j].onclick = clicked;
+    for (let i = 0; i < 8; i++) {
+      const row = table.insertRow(-1);
+      for (let j = 0; j < 8; j++) {
+        const cell = row.insertCell(-1);
+        cell.innerHTML = "0";
+        cell.id = i + "-" + j;
+        cell.onclick = clicked;
       }
     }
-
     function clicked(e) {
       const result = document.getElementById("result");
       e.target.innerHTML = e.target.innerHTML / 1 + 1;
@@ -59,5 +39,4 @@
     }
   </script>
 </body>
-
 </html>
