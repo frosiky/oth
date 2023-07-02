@@ -29,7 +29,7 @@
         </tr>
       </tbody>
     </table>
-    <p id = "result">No cell was clicked...</p>
+    <p id = "result">No cell has been clicked...</p>
     <script>
       const table = document.getElementById("tb1");
       for (var i=0; i < table.rows.length; i++) {
@@ -39,8 +39,9 @@
         }
       }
       function clicked(e) {
-        const txt = document.getElementById("result");
-        txt.textContent = e.target.id + " was clicked! value:" + e.target.innerHTML;
+        const result = document.getElementById("result");
+        e.target.textContent = e.target.textContent / 1 + 1;
+        result.textContent = "cell" e.target.id + " has been clicked! For: " + e.target.innerHTML;
       }
     </script>
   </body>
