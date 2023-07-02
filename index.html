@@ -28,5 +28,19 @@
         </tr>
       </tbody>
     </table>
+    <h1 id = "result">No cell was clicked...</h1>
+    <script>
+      const table = getElementById("td1");
+      for (var i=0; i < table.rows.length; i++) {
+        for (var j=0; j < table.rows[i].cells.length; j++) {
+          table.rows[i].cells[j].id = i + "-" + j;
+          table.rows[i].cells[j].onclick = clicked;
+        }
+      }
+      function clicked(e) {
+        var txt = document.getElementById("result");
+        txt.textContent = e.target.id + " was clicked! value:" + e.target.innerHTML;
+      }
+    </script>
   </body>
 </html>
