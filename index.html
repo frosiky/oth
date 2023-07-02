@@ -31,7 +31,7 @@
     </table>
     <p id = "result">No cell was clicked...</p>
     <script>
-      const table = getElementById("tb1");
+      const table = document.getElementById("tb1");
       for (var i=0; i < table.rows.length; i++) {
         for (var j=0; j < table.rows[i].cells.length; j++) {
           table.rows[i].cells[j].id = i + "-" + j;
