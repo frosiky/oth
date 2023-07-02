@@ -1,48 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset = "utf-8">
-    <style> 
-      table {
-        background-color: #ffe;
-        border-collapse: collapse;
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    table {
+      background-color: #ffe;
+      border-collapse: collapse;
+    }
+
+    table td {
+      border: solid 3px #aaa;
+      padding: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>othello</h1>
+  <table id="tb1">
+    <tbody>
+      <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+    </tbody>
+  </table>
+  <p id="result">No cell has been clicked...</p>
+  <script>
+    const table = document.getElementById("tb1");
+    for (var i = 0; i < table.rows.length; i++) {
+      for (var j = 0; j < table.rows[i].cells.length; j++) {
+        table.rows[i].cells[j].id = i + "-" + j;
+        table.rows[i].cells[j].onclick = clicked;
       }
-      table td {
-        border: solid 3px #aaa;
-        padding:20px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>othello</h1>
-    <table id="tb1">
-      <tbody>
-        <tr>
-          <td>0</td><td>0</td><td>0</td><td>0</td>
-        </tr>
-        <tr>
-          <td>0</td><td>0</td><td>0</td><td>0</td>
-        </tr>
-        <tr>
-          <td>0</td><td>0</td><td>0</td><td>0</td>
-        </tr>
-      </tbody>
-    </table>
-    <p id = "result">No cell has been clicked...</p>
-    <script>
-      const table = document.getElementById("tb1");
-      for (var i=0; i < table.rows.length; i++) {
-        for (var j=0; j < table.rows[i].cells.length; j++) {
-          table.rows[i].cells[j].id = i + "-" + j;
-          table.rows[i].cells[j].onclick = clicked;
-        }
-      }
-      function clicked(e) {
-        const result = document.getElementById("result");
-        e.target.textContent = e.target.textContent / 1 + 1;
-        result.textContent = "cell" e.target.id + " has been clicked! For: " + e.target.innerHTML;
-      }
-    </script>
-  </body>
+    }
+
+    function clicked(e) {
+      const result = document.getElementById("result");
+      e.target.innerHTML = e.target.innerHTML / 1 + 1;
+      result.textContent = "cell " +
+        e.target.id + " has been clicked! For: " + e.target.innerHTML;
+    }
+  </script>
+</body>
+
 </html>
