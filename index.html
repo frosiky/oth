@@ -21,14 +21,29 @@
   </table>
   <p id="result">No cell has been clicked...</p>
   <script>
+    const othello = require(".lib/othello.js");
+    const oth = new othello();
     const table = document.getElementById("tb1");
     for (let i = 0; i < 8; i++) {
       const row = table.insertRow(-1);
       for (let j = 0; j < 8; j++) {
         const cell = row.insertCell(-1);
-        cell.innerHTML = "";
         cell.id = i + "-" + j;
         cell.onclick = clicked;
+      }
+    }
+    function update() {
+      for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+          const cell = document.getElementById(i + "-" + j);
+          var core = "";
+          if (oth.data[i][j] == 1) {
+            core = "⚪";
+          } else if (oth.data[i][j] == -1){
+            core = "⚫";
+          }
+          cell.innerHTML = core;
+        }
       }
     }
     function clicked(e) {
@@ -36,3 +51,4 @@
   </script>
 </body>
 </html>
+
