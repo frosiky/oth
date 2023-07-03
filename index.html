@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    table {
+      background-color: #ffe;
+      border-collapse: collapse;
+    }
+
+    table td {
+      border: solid 3px #aaa;
+      padding: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>othello</h1>
+  <table id="tb1">
+  </table>
+  <p id="result">No cell has been clicked...</p>
+  <script>
+    const table = document.getElementById("tb1");
+    for (let i = 0; i < 8; i++) {
+      const row = table.insertRow(-1);
+      for (let j = 0; j < 8; j++) {
+        const cell = row.insertCell(-1);
+        cell.innerHTML = "";
+        cell.id = i + "-" + j;
+        cell.onclick = clicked;
+      }
+    }
+    function clicked(e) {
+    }
+  </script>
+</body>
+</html>
