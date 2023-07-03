@@ -26,16 +26,12 @@
       const row = table.insertRow(-1);
       for (let j = 0; j < 8; j++) {
         const cell = row.insertCell(-1);
-        cell.innerHTML = "0";
+        cell.innerHTML = "";
         cell.id = i + "-" + j;
         cell.onclick = clicked;
       }
     }
     function clicked(e) {
-      const result = document.getElementById("result");
-      e.target.innerHTML = e.target.innerHTML / 1 + 1;
-      result.textContent = "cell " +
-        e.target.id + " has been clicked! For: " + e.target.innerHTML;
     }
   </script>
 </body>
