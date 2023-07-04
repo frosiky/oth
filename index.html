@@ -24,9 +24,9 @@
     const oth = new othello();
     const table = document.getElementById("tb1");
     for (let i = 0; i < 8; i++) {
-      const row = table.insertRow(i);
+      const row = table.insertRow(-1);
       for (let j = 0; j < 8; j++) {
-        const cell = row.insertCell(j);
+        const cell = row.insertCell(-1);
         cell.id = i + "-" + j;
         cell.onclick = clicked;
       }
