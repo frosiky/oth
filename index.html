@@ -24,9 +24,9 @@
     const oth = new othello();
     const table = document.getElementById("tb1");
     for (let i = 0; i < 8; i++) {
-      const row = table.insertRow(-1);
+      const row = table.insertRow(i);
       for (let j = 0; j < 8; j++) {
-        const cell = row.insertCell(-1);
+        const cell = row.insertCell(j);
         cell.id = i + "-" + j;
         cell.onclick = clicked;
       }
@@ -37,6 +37,7 @@
       const flipCells = oth.putIf(e.target.id[0] / 1 , e.target.id[2] / 1);
       if (flipCells.length) {
         for (const pos of flipCells) {
+          alert("put" + i + "-" + j);
           oth.put(pos[0], pos[1]);
         }
         oth.goForward();
