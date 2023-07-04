@@ -19,49 +19,43 @@
 <body>
   <table id="tb1">
   </table>
-  <p id="log">errorlog: </p>
   <script type="module">
     import othello from "./lib/othello.js";
-    try{
-      const oth = new othello();
-      const table = document.getElementById("tb1");
+    const oth = new othello();
+    const table = document.getElementById("tb1");
+    for (let i = 0; i < 8; i++) {
+      const row = table.insertRow(-1);
+      for (let j = 0; j < 8; j++) {
+        const cell = row.insertCell(-1);
+        cell.id = i + "-" + j;
+        cell.onclick = clicked;
+      }
+    }
+    update();
+    
+    function clicked(e) {
+      const flipCells = oth.putIf(e.target.id[0] / 1 , e.target.id[2] / 1);
+      if (flipCells.length) {
+        for (const pos of flipCells) {
+          oth.put(pos[0], pos[1]);
+        }
+        oth.goForward();
+      }
+      update()
+    }
+    function update() {
       for (let i = 0; i < 8; i++) {
-        const row = table.insertRow(-1);
         for (let j = 0; j < 8; j++) {
-          const cell = row.insertCell(-1);
-          cell.id = i + "-" + j;
-          cell.onclick = clicked;
-        }
-      }
-      update();
-   
-      function clicked(e) {
-        const flipCells = oth.putIf(e.target.id[0] / 1 , e.target.id[2] / 1);
-        if (flipCells.length) {
-          for (const pos of flipCells) {
-            oth.put(pos[0], pos[1]);
+          const cell = document.getElementById(i + "-" + j);
+          var core = "　";
+          if (oth.data[i][j] == 1) {
+            core = "⚪";
+          } else if (oth.data[i][j] == -1){
+            core = "⚫";
           }
-          oth.goForward();
-        }
-        update()
-      }
-      function update() {
-        for (let i = 0; i < 8; i++) {
-          for (let j = 0; j < 8; j++) {
-            const cell = document.getElementById(i + "-" + j);
-            var core = "　";
-            if (oth.data[i][j] == 1) {
-              core = "⚪";
-            } else if (oth.data[i][j] == -1){
-              core = "⚫";
-            }
-            cell.innerHTML = core;
-          }
+          cell.innerHTML = core;
         }
       }
-    } catch (e) {
-      const log = getElementById("log")
-      log.textContent = log.textContent + "\n" + e;
     }
   </script>
 </body>
