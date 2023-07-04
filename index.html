@@ -33,6 +33,17 @@
       }
     }
     update();
+    
+    function clicked(e) {
+      const flipCells = oth.putIf(e.target.id[0] / 1 , e.target.id[2] / 1);
+      if (flipCells.length) {
+        for (const pos of flipCells) {
+          oth.put(pos[0], pos[1]);
+        }
+        oth.turn *= -1;
+      }
+      update()
+    }
     function update() {
       for (let i = 0; i < 8; i++) {
         for (let j = 0; j < 8; j++) {
@@ -47,9 +58,6 @@
         }
       }
     }
-    function clicked(e) {
-    }
   </script>
 </body>
 </html>
-
