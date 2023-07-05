@@ -1,63 +1,61 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>test</title>
-  <style>
-    table {
-      background-color: #ffe;
-      border-collapse: collapse;
-    }
+  <head>
+    <meta charset="utf-8" />
+    <title>test</title>
+    <style>
+      table {
+        background-color: #ffe;
+        border-collapse: collapse;
+      }
 
-    table td {
-      border: solid 3px #aaa;
-      padding: 20px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <table id="tb1">
-  </table>
-  <script type="module">
-    import othello from "./lib/othello.js";
-    const oth = new othello();
-    const table = document.getElementById("tb1");
-    for (let i = 0; i < 8; i++) {
-      const row = table.insertRow(-1);
-      for (let j = 0; j < 8; j++) {
-        const cell = row.insertCell(-1);
-        cell.id = i + "-" + j;
-        cell.onclick = clicked;
+      table td {
+        border: solid 3px #aaa;
+        padding: 20px;
+        cursor: pointer;
       }
-    }
-    update();
-    
-    function clicked(e) {
-      const flipCells = oth.putIf(e.target.id[0] / 1 , e.target.id[2] / 1);
-      if (flipCells.length) {
-        for (const pos of flipCells) {
-          alert("put" + i + "-" + j);
-          oth.put(pos[0], pos[1]);
-        }
-        oth.goForward();
-      }
-      update()
-    }
-    function update() {
+    </style>
+  </head>
+  <body>
+    <table id="tb1"></table>
+    <script type="module">
+      import othello from "./lib/othello.js";
+      const oth = new othello();
+      const table = document.getElementById("tb1");
       for (let i = 0; i < 8; i++) {
+        const row = table.insertRow(-1);
         for (let j = 0; j < 8; j++) {
-          const cell = document.getElementById(i + "-" + j);
-          var core = "　";
-          if (oth.data[i][j] == 1) {
-            core = "⚪";
-          } else if (oth.data[i][j] == -1){
-            core = "⚫";
-          }
-          cell.innerHTML = core;
+          const cell = row.insertCell(-1);
+          cell.id = i + "-" + j;
+          cell.onclick = clicked;
         }
       }
-    }
-  </script>
-</body>
+      update();
+
+      function clicked(e) {
+        const flipCells = oth.putIf(e.target.id[0] / 1, e.target.id[2] / 1);
+        if (flipCells.length) {
+          for (const pos of flipCells) {
+            oth.put(pos[0], pos[1]);
+          }
+          oth.goForward();
+        }
+        update();
+      }
+      function update() {
+        for (let i = 0; i < 8; i++) {
+          for (let j = 0; j < 8; j++) {
+            const cell = document.getElementById(i + "-" + j);
+            var core = "　";
+            if (oth.data[i][j] == 1) {
+              core = "⚪";
+            } else if (oth.data[i][j] == -1) {
+              core = "⚫";
+            }
+            cell.innerHTML = core;
+          }
+        }
+      }
+    </script>
+  </body>
 </html>
