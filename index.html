@@ -69,7 +69,7 @@
         }
         const scoreDisplay = document.getElementById("score");
         const statusDisplay = document.getElementBtId("status");
-        scoreDisplay.content = "⚪:" + score[0] + "     ⚫:" + score[1];
+        scoreDisplay.content =preview.toString()
         if (oth.canput().length) {
           oth.goForward();
           statusDisplay.content = (oth.turn == 1 ? "⚫" : "⚪") + ":パスしました\n" + (oth.turn == 1 ? "⚪" : "⚫") + "の手番です";
