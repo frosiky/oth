@@ -17,8 +17,8 @@
     </style>
   </head>
   <body>
-    <table id="tb1"></table>
     <h3 id="score">score</h3>
+    <table id="tb1"></table>
     <h3 id="status"></h3>
     <script type="module">
       import othello from "./lib/othello.js";
@@ -64,17 +64,17 @@
                 core = "nai"
               }
             }
-            cell.innerHTML = core;
+            cell.textContent = core;
           } 
         }
         const scoreDisplay = document.getElementById("score");
         const statusDisplay = document.getElementBtId("status");
-        scoreDisplay.content = score;
+        scoreDisplay.textContent = score;
         if (oth.canput().length) {
           oth.goForward();
-          statusDisplay.content = (oth.turn == 1 ? "⚫" : "⚪") + ":パスしました\n" + (oth.turn == 1 ? "⚪" : "⚫") + "の手番です";
+          statusDisplay.textContent = (oth.turn == 1 ? "⚫" : "⚪") + ":パスしました\n" + (oth.turn == 1 ? "⚪" : "⚫") + "の手番です";
         } else {
-          statusDisplay.content =  (oth.turn == 1 ? "⚪" : "⚫") + "の手番です";
+          statusDisplay.textContent =  (oth.turn == 1 ? "⚪" : "⚫") + "の手番です";
         }    
       }
     </script>
