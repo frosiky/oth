@@ -20,6 +20,7 @@
     <h3 id="score">score</h3>
     <table id="tb1"></table>
     <h3 id="status"></h3>
+    <h3 id="pass"></h3>
     <script type="module">
       import othello from "./lib/othello.js";
       const oth = new othello();
@@ -47,11 +48,14 @@
       function update() {
         const preview = oth.canput();
         const statusDisplay = document.getElementById("status");
+        const pass = document.getElementById("pass")
         if (!preview.length) {
           oth.goForward();
           statusDisplay.textContent = (oth.turn == 1 ? "⚫" : "⚪") + ":pass\n手番:" + (oth.turn == 1 ? "⚪" : "⚫");
+          pass.textContent = (oth.turn == 1 ? "⚫" : "⚪") + ":pass"
         } else {
           statusDisplay.textContent = "手番:" + (oth.turn == 1 ? "⚪" : "⚫");
+          pass.textContent = "";
         }
         const score = [0, 0];
         for (let i = 0; i < 8; i++) {
