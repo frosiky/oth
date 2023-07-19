@@ -66,11 +66,11 @@
           } 
         }
         const scoreDisplay = document.getElementById("score");
-        const statusD8spla = document.getElementBtId("status")
+        const statusDisplay = document.getElementBtId("status")
         scoreDisplay.content = '⚪:${score[0]}       ⚫:${score[1]}'
         if (oth.canput().length) {
           oth.goForward();
-          statusDisplay.content = (oth.turn == 1 ? "⚪" : "⚫") + ":パスしました\n" + (oth.turn == 1 ? "⚪" : "⚫" t+ "の手番です";
+          statusDisplay.content = (oth.turn == 1 ? "⚫" : "⚪") + ":パスしました\n" + (oth.turn == 1 ? "⚪" : "⚫" t+ "の手番です";
         } else {
           statusDisplay.content = "";
         }    
