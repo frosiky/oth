@@ -34,6 +34,9 @@
       }
       update();
 
+      const scoreDisplay = document.getElementById("score");
+      scoreDisplay.textContent = "a"
+      
       function clicked(e) {
         const flipCells = oth.putIf(e.target.id[0] / 1, e.target.id[2] / 1);
         if (flipCells.length) {
