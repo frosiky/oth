@@ -33,9 +33,6 @@
         }
       }
       update();
-
-      const scoreDisplay = document.getElementById("score");
-      scoreDisplay.textContent = "a"
       
       function clicked(e) {
         const flipCells = oth.putIf(e.target.id[0] / 1, e.target.id[2] / 1);
@@ -49,6 +46,13 @@
       }
       function update() {
         const preview = oth.canput();
+        const statusDisplay = document.getElementById("status");
+        if (!preview.length) {
+          oth.goForward();
+          statusDisplay.textContent = (oth.turn == 1 ? "⚫" : "⚪") + ":pass\n手番:" + (oth.turn == 1 ? "⚪" : "⚫");
+        } else {
+          statusDisplay.textContent = "手番:" + (oth.turn == 1 ? "⚪" : "⚫");
+        }
         const score = [0, 0];
         for (let i = 0; i < 8; i++) {
           for (let j = 0; j < 8; j++) {
@@ -70,15 +74,6 @@
             cell.textContent = core;
           } 
         }
-        const scoreDisplay = document.getElementById("score");
-        const statusDisplay = document.getElementBtId("status");
-        scoreDisplay.textContent = "a";
-        if (oth.canput().length) {
-          oth.goForward();
-          statusDisplay.textContent = (oth.turn == 1 ? "⚫" : "⚪") + ":パスしました\n" + (oth.turn == 1 ? "⚪" : "⚫") + "の手番です";
-        } else {
-          statusDisplay.textContent =  (oth.turn == 1 ? "⚪" : "⚫") + "の手番です";
-        }    
       }
     </script>
   </body>
