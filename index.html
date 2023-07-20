@@ -48,10 +48,11 @@
       function update() {
         const preview = oth.canput();
         const statusDisplay = document.getElementById("status");
+        const scoreDisplay = document.getElementById("score");
         const pass = document.getElementById("pass")
         if (!preview.length) {
           oth.goForward();
-          statusDisplay.textContent = (oth.turn == 1 ? "⚫" : "⚪") + ":pass\n手番:" + (oth.turn == 1 ? "⚪" : "⚫");
+          statusDisplay.textContent = "手番:" + (oth.turn == 1 ? "⚪" : "⚫");
           pass.textContent = (oth.turn == 1 ? "⚫" : "⚪") + ":pass"
         } else {
           statusDisplay.textContent = "手番:" + (oth.turn == 1 ? "⚪" : "⚫");
@@ -69,15 +70,16 @@
               core = "⚫";
               score[1]++;
             } else {
-              if (preview.includes([i, j])) {
-                core = "・";
-              } else {
-                core = "nai"
-              }
+              core = "　";
+            }
+            for (const pos of preview) {
+              const pre = document.getElementById(pos[0] + "-" + pos[1]);
+              pre.textContent = "・";
             }
             cell.textContent = core;
           } 
         }
+        scoreDisplay.textContent = "⚪:"+score[0]+"⚫:"+score[1];
       }
     </script>
   </body>
