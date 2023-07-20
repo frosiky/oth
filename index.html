@@ -70,13 +70,13 @@
               core = "⚫";
               score[1]++;
             } else {
-              core = "　";
+              if preview.map(e => e.join("-")).includes(i + "-" + j) {
+                core = "<b>・</b>"
+              } else {
+                core = "　";
+              }
             }
-            for (const pos of preview) {
-              const pre = document.getElementById(pos[0] + "-" + pos[1]);
-              pre.innerHTML = "<b>・</b>";
-            }
-            cell.textContent = core;
+            cell.innerHTML = core;
           } 
         }
         scoreDisplay.textContent = "⚪:"+score[0]+"⚫:"+score[1];
