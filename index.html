@@ -74,7 +74,7 @@
             }
             for (const pos of preview) {
               const pre = document.getElementById(pos[0] + "-" + pos[1]);
-              pre.textContent = "・";
+              pre.innerHTML = "<b>・</b>";
             }
             cell.textContent = core;
           } 
