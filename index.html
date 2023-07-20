@@ -70,7 +70,7 @@
               core = "⚫";
               score[1]++;
             } else {
-              if preview.map(e => e.join("-")).includes(i + "-" + j) {
+              if (preview.map(e => e.join("-")).includes(i + "-" + j)) {
                 core = "・"
               } else {
                 core = "　";
