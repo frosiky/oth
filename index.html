@@ -46,35 +46,43 @@
         update();
       }
       function update() {
-        const preview = oth.canput();
+        let preview = oth.canput();
         const statusDisplay = document.getElementById("status");
         const scoreDisplay = document.getElementById("score");
         const pass = document.getElementById("pass")
         if (!preview.length) {
           oth.goForward();
-          if (!oth.canput.length) {
-            const score_end = oth.end.score;
-            scoreDisplay.textContent = "⚪:"+score_end[0]+"⚫:"+score_end[1];
+          preview = oth.canput()
+          if (!preview.length) {
+            const score_end = oth.end.result.score;
+            scoreDisplay.textContent = `⚫:${score_end[0]}  ⚪:${+score_end[1]}`;
             statusDisplay.textContent = "ゲームセット-設置可能なマスは無くなりました";
             pass.innerHTML = "<b>"
               +oth.end.result == 0 
                 ? "引き分け" 
-                : (oth.end.result == 1 
+                : (oth.end.result.winP == 1 
                   ? "⚫"
                   :"⚪")+"の勝ち"
               +"</b>です";
               for (let i = 0; i < 8; i++) {
                 for (let j = 0; j < 8; j++) {
-                  const cell = document.getElementById(i + "-" + j)
+                  const cell = document.getElementById(i + "-" + j);
+                  var core = "　";
+                  if (oth.data[i][j] == 1) {
+                    core = "⚫";
+                  } else if (oth.data[i][j] == -1) {
+                    core = "⚪";
+                  }
+                  cell.textContent = core;
                   cell.onclick = "return";
                 }
-              }
+              }    
               return;
           }
-          statusDisplay.textContent = "手番:" + (oth.turn == 1 ? "⚪" : "⚫");
-          pass.textContent = (oth.turn == 1 ? "⚫" : "⚪") + ":pass";
+          statusDisplay.textContent = "手番:" + (oth.turn == 1 ? "⚫" : "⚪");
+          pass.textContent = (oth.turn == 1 ? "⚪" : "⚫") + ":パス";
         } else {
-          statusDisplay.textContent = "手番:" + (oth.turn == 1 ? "⚪" : "⚫");
+          statusDisplay.textContent = "手番:" + (oth.turn == 1 ? "⚫" : "⚪");
           pass.textContent = "";
         }
         const score = [0, 0];
@@ -83,10 +91,10 @@
             const cell = document.getElementById(i + "-" + j);
             var core = "　";
             if (oth.data[i][j] == 1) {
-              core = "⚪";
+              core = "⚫";
               score[0]++;
             } else if (oth.data[i][j] == -1) {
-              core = "⚫";
+              core = "⚪";
               score[1]++;
             } else {
               if (preview.map(e => e.join("-")).includes(i + "-" + j)) {
@@ -98,7 +106,7 @@
             cell.textContent = core;
           } 
         }
-        scoreDisplay.textContent = "⚪:"+score[0]+"⚫:"+score[1];
+        scoreDisplay.textContent = "⚫:"+score[0]+"⚪:"+score[1];
       }
     </script>
   </body>
