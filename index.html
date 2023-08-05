@@ -57,13 +57,13 @@
             const score_end = oth.end.result.score;
             scoreDisplay.textContent = `⚫:${score_end[0]}  ⚪:${+score_end[1]}`;
             statusDisplay.textContent = "ゲームセット-設置可能なマスは無くなりました";
-            pass.innerHTML = "<b>"
+            pass.innerHTML = "<strong>"
               +oth.end.result == 0 
                 ? "引き分け" 
                 : (oth.end.result.winP == 1 
                   ? "⚫"
                   :"⚪")+"の勝ち"
-              +"</b>です";
+              +"</strong>です";
               for (let i = 0; i < 8; i++) {
                 for (let j = 0; j < 8; j++) {
                   const cell = document.getElementById(i + "-" + j);
