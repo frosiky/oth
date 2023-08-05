@@ -52,8 +52,27 @@
         const pass = document.getElementById("pass")
         if (!preview.length) {
           oth.goForward();
+          if (!oth.canput.length) {
+            const score_end = oth.end.score;
+            scoreDisplay.textContent = "⚪:"+score_end[0]+"⚫:"+score_end[1];
+            statusDisplay.textContent = "ゲームセット-設置可能なマスは無くなりました";
+            pass.innerHTML = "<b>"
+              +oth.end.result == 0 
+                ? "引き分け" 
+                : (oth.end.result == 1 
+                  ? "⚫"
+                  :"⚪")+"の勝ち"
+              +"</b>です";
+              for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+                  const cell = document.getElementById(i + "-" + j)
+                  cell.onclick = "return";
+                }
+              }
+              return;
+          }
           statusDisplay.textContent = "手番:" + (oth.turn == 1 ? "⚪" : "⚫");
-          pass.textContent = (oth.turn == 1 ? "⚫" : "⚪") + ":pass"
+          pass.textContent = (oth.turn == 1 ? "⚫" : "⚪") + ":pass";
         } else {
           statusDisplay.textContent = "手番:" + (oth.turn == 1 ? "⚪" : "⚫");
           pass.textContent = "";
