@@ -11,32 +11,37 @@
         background-color: #ffe;
         border-collapse: collapse;
       }
-
       table td {
         border: solid 3px #aaa;
         padding: 20px;
         cursor: pointer;
       }
+      input {
+        width: 400px;
+        height: 100px;
+        font-size: 50px;
+        text-align: center;
+      }
+      #selector {
+        width: 400px;
+        margin: auto;
+      }
     </style>
   </head>
   <body>
-    <h3 id="score">loading</h3>
-    <table id="tb1"></table>
-    <h3 id="status"></h3>
-    <h3 id="pass"></h3>
     <script type="module">
       import othello from "./lib/othello.js";
-      const oth = new othello();
-      const table = document.getElementById("tb1");
-      for (let i = 0; i < 8; i++) {
-        const row = table.insertRow(-1);
-        for (let j = 0; j < 8; j++) {
-          const cell = row.insertCell(-1);
-          cell.id = i + "-" + j;
-          cell.onclick = clicked;
-        }
+      import Pages from "./lib/pages.js"
+      const pages = new Pages();
+      let oth;
+      const input = pages.select();
+      input.map(e => {
+        e.onclick = _e => {
+        pages.start(_e.id);
+        oth = new othello(_e.id);
+        update();
       }
-      update();
+      })
       
       function clicked(e) {
         const flipCells = oth.putIf(e.target.id[0] / 1, e.target.id[2] / 1);
@@ -60,13 +65,13 @@
             const score_end = oth.end.result.score;
             scoreDisplay.textContent = `⚫:${score_end[0]}  ⚪:${+score_end[1]}`;
             statusDisplay.textContent = "ゲームセット-設置可能なマスは無くなりました";
-            pass.innerHTML = "<strong>"
-              +oth.end.result == 0 
+            pass.textContent =
+              oth.end.result == 0 
                 ? "引き分け" 
                 : (oth.end.result.winP == 1 
                   ? "⚫"
                   :"⚪")+"の勝ち"
-              +"</strong>です";
+              +"sです";
               for (let i = 0; i < 8; i++) {
                 for (let j = 0; j < 8; j++) {
                   const cell = document.getElementById(i + "-" + j);
