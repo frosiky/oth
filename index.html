@@ -17,31 +17,58 @@
         cursor: pointer;
       }
       input {
-        width: 400px;
-        height: 100px;
-        font-size: 50px;
+        width: 100%;
+        height: 400%;
+        font-size: 300%;
         text-align: center;
       }
-      #selector {
-        width: 400px;
-        margin: auto;
+      .selector {
+        width: 70%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+      }
+      #parent {
+        width: 100%;
+        height: 100%;
+        position: fixed;
       }
     </style>
   </head>
   <body>
     <script type="module">
-      import othello from "./lib/othello.js";
+      import Othello from "./lib/othello.js";
       import Pages from "./lib/pages.js"
-      const pages = new Pages();
+      
       let oth;
-      const input = pages.select();
-      input.map(e => {
+      let CP = true;
+      (function () {
+      const pages = new Pages();
+      pages.selectPlayer().map(e => {
         e.onclick = _e => {
-        pages.start(_e.id);
-        oth = new othello(_e.id);
-        update();
-      }
+          if (_e.target.id == "3") {
+            CP =! CP;
+            pages.start().map(e => 
+              e.map(_e => _e.onclick = clicked)
+            );
+            oth = new Othello(_e.target.id);
+            update();
+          } else {
+            pages.selectCondition(_e.target.id/1).button.map(e => {
+              e.onclick = _e => {
+                pages.start()
+                  .map(e => 
+                    e.map(_e => _e.onclick = clicked)
+                  );
+                oth = new Othello(_e.target.id / 1);
+                update();
+              }
+            })
+          }
+        }
       })
+    }())
       
       function clicked(e) {
         const flipCells = oth.putIf(e.target.id[0] / 1, e.target.id[2] / 1);
