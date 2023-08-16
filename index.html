@@ -44,17 +44,21 @@
       let oth;
       (function () {
         const pages = new Pages();
-        const start = () => {
+        const start = (num) => {
           pages.start()
           .map(e => e.map(e => e.onclick = clicked))
+          oth = new Othello(num);
+          update();
         }
-        oth = new Othello();
-        update();
         pages.selectPlayer().map(e =>
           e.onclick = e => {
-            if (e.target.id == "3") start();
-            else pages.selectCondition().button
-            .map(e => e.onclick = start());
+            if (e.target.id == "3") {
+              start(e.id/1)
+              console.log("started:2P")
+            } else {
+              pages.selectCondition()
+              .map(e => e.onclick = e => start(e.id/1));
+            }
           }
         )
       }())
