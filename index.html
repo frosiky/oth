@@ -4,14 +4,13 @@
     <meta charset="utf-8"></meta>
     <meta property="og:title" content="Othello">
     <meta property="og:description" content="for 2 player in one display">
-    <meta property="og:image" content="https://drive.google.com/file/d/1owJamYvOfPTR8LaunJhOuG5-veqCyJzS">
     <title>Othello board</title>
     <style>
       table {
         background-color: #ffe;
         border-collapse: collapse;
       }
-      table td {
+      td {
         border: solid 3px #aaa;
         padding: 20px;
         cursor: pointer;
@@ -21,6 +20,7 @@
         height: 400%;
         font-size: 300%;
         text-align: center;
+        cursor: pointer;
       }
       .selector {
         width: 70%;
@@ -42,35 +42,23 @@
       import Pages from "./lib/pages.js"
       
       let oth;
-      let CP = true;
       (function () {
-      const pages = new Pages();
-      pages.selectPlayer().map(e => {
-        e.onclick = _e => {
-          if (_e.target.id == "3") {
-            CP =! CP;
-            pages.start().map(e => 
-              e.map(_e => _e.onclick = clicked)
-            );
-            oth = new Othello(_e.target.id);
-            update();
-          } else {
-            pages.selectCondition(_e.target.id/1).button.map(e => {
-              e.onclick = _e => {
-                pages.start()
-                  .map(e => 
-                    e.map(_e => _e.onclick = clicked)
-                  );
-                oth = new Othello(_e.target.id / 1);
-                update();
-              }
-            })
-          }
+        const pages = new Pages();
+        const start = () => {
+          pages.start()
+          .map(e => e.map(e => e.onclick = clicked))
         }
-      })
-    }())
-      
-      function clicked(e) {
+        oth = new Othello();
+        update();
+        pages.selectPlayer().map(e =>
+          e.onclick = e => {
+            if (e.target.id == "3") start();
+            else pages.selectCondition().button
+            .map(e => e.onclick = start());
+          }
+        )
+      }())
+      function clicked(e) {   
         const flipCells = oth.putIf(e.target.id[0] / 1, e.target.id[2] / 1);
         if (flipCells.length) {
           for (const pos of flipCells) {
@@ -99,20 +87,20 @@
                   ? "⚫"
                   :"⚪")+"の勝ち"
               +"sです";
-              for (let i = 0; i < 8; i++) {
-                for (let j = 0; j < 8; j++) {
-                  const cell = document.getElementById(i + "-" + j);
-                  var core = "　";
-                  if (oth.data[i][j] == 1) {
-                    core = "⚫";
-                  } else if (oth.data[i][j] == -1) {
-                    core = "⚪";
-                  }
-                  cell.textContent = core;
-                  cell.onclick = "return";
+            for (let i = 0; i < 8; i++) {
+              for (let j = 0; j < 8; j++) {
+                const cell = document.getElementById(i + "-" + j);
+                var core = "　";
+                if (oth.data[i][j] == 1) {
+                  core = "⚫";
+                } else if (oth.data[i][j] == -1) {
+                  core = "⚪";
                 }
-              }    
-              return;
+                cell.textContent = core;
+                cell.onclick = "return";
+              }
+            }
+            return;
           }
           statusDisplay.textContent = "手番:" + (oth.turn == 1 ? "⚫" : "⚪");
           pass.textContent = (oth.turn == 1 ? "⚪" : "⚫") + ":パス";
