@@ -45,32 +45,44 @@
       (function () {
         const pages = new Pages();
         const start = (num) => {
+          oth = new Othello(num);
           pages.start()
           .map(e => e.map(e => e.onclick = clicked))
-          oth = new Othello(num);
+          while (oth.isCPTurn()) {
+            console.log("aa")
+            cpuPut();
+            console.log("aaa")
+            oth.goForward();
+            update();
+            if (oth.end) return;
+          }
           update();
         }
         pages.selectPlayer().map(e =>
           e.onclick = e => {
             if (e.target.id == "3") {
-              start(e.id/1)
-              console.log("started:2P")
+              start(e.target.id/1)
             } else {
               pages.selectCondition()
-              .map(e => e.onclick = e => start(e.id/1));
+              .map(e => e.onclick = e => start(e.target.id/1));
             }
           }
         )
       }())
-      function clicked(e) {   
-        const flipCells = oth.putIf(e.target.id[0] / 1, e.target.id[2] / 1);
-        if (flipCells.length) {
-          for (const pos of flipCells) {
-            oth.put(pos[0], pos[1]);
-          }
-          oth.goForward();
-        }
+      function clicked(e) {
+        if (!oth.putIf(e.target.id[0] / 1, e.target.id[2] / 1).length) return;
+        playerPut([e.target.id[0] / 1, e.target.id[2] / 1]);
+        oth.goForward();
         update();
+        if (oth.CP && oth.isCPTurn()) {
+          console.log("alive")
+          while (oth.isCPTurn()) {
+            cpuPut()
+            oth.goForward()
+            update();
+            if (oth.end) return;
+          }
+        }
       }
       function update() {
         let preview = oth.canput();
@@ -134,6 +146,22 @@
           } 
         }
         scoreDisplay.textContent = "⚫:"+score[0]+"⚪:"+score[1];
+      }
+      function playerPut(pos) {
+        const flipCells = oth.putIf(pos[0] / 1, pos[1] / 1);
+        if (flipCells.length) {
+          for (const pos of flipCells) {
+            oth.put(pos[0], pos[1]);
+          }
+        } else {
+          return;
+        }
+      }
+      function cpuPut() {
+        const poss = oth.cpu();
+        for (const pos of oth.putIf(poss[0], poss[1])) {
+          oth.put(pos[0], pos[1]);
+        }
       }
     </script>
   </body>
