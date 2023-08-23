@@ -79,7 +79,7 @@
           while (oth.isCPTurn()) {
             cpuPut();
             oth.goForward();
-            update();
+            setTimeout(update,1000);
             if (oth.end) return;
           }
         }
