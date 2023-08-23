@@ -49,12 +49,12 @@
           pages.start()
           .map(e => e.map(e => e.onclick = clicked))
           while (oth.isCPTurn()) {
-            console.log("aa")
+            console.log("cpu")
+            oth.data.map(e => console.log(e))
             cpuPut();
-            console.log("aaa")
+            oth.data.map(e => console.log(e))
             oth.goForward();
             update();
-            if (oth.end) return;
           }
           update();
         }
@@ -75,10 +75,9 @@
         oth.goForward();
         update();
         if (oth.CP && oth.isCPTurn()) {
-          console.log("alive")
           while (oth.isCPTurn()) {
-            cpuPut()
-            oth.goForward()
+            cpuPut();
+            oth.goForward();
             update();
             if (oth.end) return;
           }
@@ -102,7 +101,7 @@
                 : (oth.end.result.winP == 1 
                   ? "⚫"
                   :"⚪")+"の勝ち"
-              +"sです";
+              +"です";
             for (let i = 0; i < 8; i++) {
               for (let j = 0; j < 8; j++) {
                 const cell = document.getElementById(i + "-" + j);
@@ -159,6 +158,7 @@
       }
       function cpuPut() {
         const poss = oth.cpu();
+        console.log(poss[0], poss[1],"=>",oth.putIf(poss[0], poss[1]))
         for (const pos of oth.putIf(poss[0], poss[1])) {
           oth.put(pos[0], pos[1]);
         }
