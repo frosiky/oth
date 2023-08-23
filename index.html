@@ -50,10 +50,7 @@
           pages.start()
           .map(e => e.map(e => e.onclick = clicked))
           while (oth.isCPTurn()) {
-            console.log("cpu")
-            oth.data.map(e => console.log(e))
             cpuPut();
-            oth.data.map(e => console.log(e))
             oth.goForward();
             update();
           }
@@ -159,7 +156,6 @@
       }
       function cpuPut() {
         const poss = oth.cpu();
-        console.log(poss[0], poss[1],"=>",oth.putIf(poss[0], poss[1]))
         for (const pos of oth.putIf(poss[0], poss[1])) {
           oth.put(pos[0], pos[1]);
         }
