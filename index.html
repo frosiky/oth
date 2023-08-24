@@ -155,8 +155,7 @@
         }
       }
       function cpuPut() {
-        const poss = oth.cpu();
-        for (const pos of oth.putIf(poss[0], poss[1])) {
+        for (const pos of oth.cpu()) {
           oth.put(pos[0], pos[1]);
         }
       }
