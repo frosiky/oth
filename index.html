@@ -3,15 +3,16 @@
   <head>
     <meta charset="utf-8"></meta>
     <meta property="og:title" content="Othello">
-    <meta property="og:description" content="for 2 player in one display">
+    <meta property="og:description" content="for one or two players">
+    <meta property="og:image" content="https://cdn.discordapp.com/attachments/1133705026162937940/1137740976119627926/oth.png">
     <title>Othello board</title>
     <style>
       table {
-        background-color: #ffe;
+        background-color: #075007;
         border-collapse: collapse;
       }
       td {
-        border: solid 3px #aaa;
+        border: solid 1.5px #000;
         padding: 20px;
         cursor: pointer;
       }
@@ -49,10 +50,7 @@
           pages.start()
           .map(e => e.map(e => e.onclick = clicked))
           while (oth.isCPTurn()) {
-            console.log("cpu")
-            oth.data.map(e => console.log(e))
             cpuPut();
-            oth.data.map(e => console.log(e))
             oth.goForward();
             update();
           }
@@ -78,7 +76,7 @@
           while (oth.isCPTurn()) {
             cpuPut();
             oth.goForward();
-            update();
+            setTimeout(update,1000);
             if (oth.end) return;
           }
         }
@@ -158,7 +156,6 @@
       }
       function cpuPut() {
         const poss = oth.cpu();
-        console.log(poss[0], poss[1],"=>",oth.putIf(poss[0], poss[1]))
         for (const pos of oth.putIf(poss[0], poss[1])) {
           oth.put(pos[0], pos[1]);
         }
